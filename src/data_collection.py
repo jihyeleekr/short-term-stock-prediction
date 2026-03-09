@@ -8,7 +8,7 @@ def download_data(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
   Download daily OHLCV data from one ticker using Yahoo Finace API.
   """
 
-  df = yf.downlaod(
+  df = yf.download(
     ticker,
     start=start_date,
     end=end_date,
