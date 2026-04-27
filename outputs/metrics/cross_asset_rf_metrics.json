@@ -1,0 +1,162 @@
+{
+  "AAPL": {
+    "helper_stocks": [
+      "MSFT",
+      "GOOGL",
+      "NVDA"
+    ],
+    "best_params": {
+      "n_estimators": 200,
+      "max_depth": 3,
+      "min_samples_leaf": 20,
+      "min_samples_split": 30,
+      "max_features": "sqrt"
+    },
+    "best_validation_roc_auc": 0.7052247115941382,
+    "best_train_validation_roc_auc_gap": 0.056925727270936255,
+    "train": {
+      "accuracy": 0.6835714285714286,
+      "f1": 0.670631970260223,
+      "roc_auc": 0.7621504388650745
+    },
+    "validation": {
+      "accuracy": 0.6366666666666667,
+      "f1": 0.6254295532646048,
+      "roc_auc": 0.7052247115941382
+    },
+    "test": {
+      "accuracy": 0.5880398671096345,
+      "f1": 0.5694444444444444,
+      "roc_auc": 0.6255078608019785
+    },
+    "train_test_roc_auc_gap": 0.136642578063096
+  },
+  "MSFT": {
+    "helper_stocks": [
+      "AAPL",
+      "GOOGL",
+      "NVDA"
+    ],
+    "best_params": {
+      "n_estimators": 100,
+      "max_depth": 2,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20,
+      "max_features": "sqrt"
+    },
+    "best_validation_roc_auc": 0.7287962304409672,
+    "best_train_validation_roc_auc_gap": 0.04909194088982716,
+    "train": {
+      "accuracy": 0.6964285714285714,
+      "f1": 0.6872700515084621,
+      "roc_auc": 0.7778881713307944
+    },
+    "validation": {
+      "accuracy": 0.6633333333333333,
+      "f1": 0.6480836236933798,
+      "roc_auc": 0.7287962304409672
+    },
+    "test": {
+      "accuracy": 0.6345514950166113,
+      "f1": 0.6232876712328768,
+      "roc_auc": 0.7018788682581787
+    },
+    "train_test_roc_auc_gap": 0.07600930307261566
+  },
+  "GOOGL": {
+    "helper_stocks": [
+      "MSFT",
+      "AAPL",
+      "AMZN"
+    ],
+    "best_params": {
+      "n_estimators": 100,
+      "max_depth": 2,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20,
+      "max_features": "sqrt"
+    },
+    "best_validation_roc_auc": 0.7177093059446,
+    "best_train_validation_roc_auc_gap": 0.050786025449858885,
+    "train": {
+      "accuracy": 0.7035714285714286,
+      "f1": 0.7071277346506705,
+      "roc_auc": 0.7684953313944589
+    },
+    "validation": {
+      "accuracy": 0.6933333333333334,
+      "f1": 0.7032258064516129,
+      "roc_auc": 0.7177093059446
+    },
+    "test": {
+      "accuracy": 0.6411960132890365,
+      "f1": 0.6375838926174496,
+      "roc_auc": 0.6923247559893524
+    },
+    "train_test_roc_auc_gap": 0.07617057540510652
+  },
+  "AMZN": {
+    "helper_stocks": [
+      "MSFT",
+      "AAPL",
+      "GOOGL"
+    ],
+    "best_params": {
+      "n_estimators": 100,
+      "max_depth": 2,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20,
+      "max_features": "sqrt"
+    },
+    "best_validation_roc_auc": 0.7370327570114227,
+    "best_train_validation_roc_auc_gap": 0.01213152188064981,
+    "train": {
+      "accuracy": 0.6892857142857143,
+      "f1": 0.6859205776173285,
+      "roc_auc": 0.7491642788920725
+    },
+    "validation": {
+      "accuracy": 0.6833333333333333,
+      "f1": 0.6666666666666666,
+      "roc_auc": 0.7370327570114227
+    },
+    "test": {
+      "accuracy": 0.6677740863787376,
+      "f1": 0.6666666666666666,
+      "roc_auc": 0.7449133050247698
+    },
+    "train_test_roc_auc_gap": 0.004250973867302665
+  },
+  "META": {
+    "helper_stocks": [
+      "GOOGL",
+      "MSFT",
+      "AAPL"
+    ],
+    "best_params": {
+      "n_estimators": 100,
+      "max_depth": 2,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20,
+      "max_features": "sqrt"
+    },
+    "best_validation_roc_auc": 0.7231654740210676,
+    "best_train_validation_roc_auc_gap": 0.033060555179677875,
+    "train": {
+      "accuracy": 0.685,
+      "f1": 0.6721189591078067,
+      "roc_auc": 0.7562260292007454
+    },
+    "validation": {
+      "accuracy": 0.6566666666666666,
+      "f1": 0.6308243727598566,
+      "roc_auc": 0.7231654740210676
+    },
+    "test": {
+      "accuracy": 0.6079734219269103,
+      "f1": 0.6143790849673203,
+      "roc_auc": 0.6578970679422447
+    },
+    "train_test_roc_auc_gap": 0.09832896125850077
+  }
+}

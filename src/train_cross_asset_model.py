@@ -14,16 +14,28 @@ from config import PROCESSED_DATA_DIR, OUTPUT_DIR
 
 TARGET_STOCKS = ["AAPL", "MSFT", "GOOGL", "AMZN", "META"]
 
+HELPER_MAP = {
+    "AAPL": ["MSFT", "GOOGL", "NVDA"],
+    "MSFT": ["AAPL", "GOOGL", "NVDA"],
+    "GOOGL": ["MSFT", "AAPL", "AMZN"],
+    "AMZN": ["MSFT", "AAPL", "GOOGL"],
+    "META": ["GOOGL", "MSFT", "AAPL"],
+}
+
+# Smaller C = stronger regularization.
+# This helps reduce overfitting.
+C_VALUES = [0.01, 0.05, 0.1, 0.5, 1.0]
+
 FIGURE_DIR = OUTPUT_DIR / "figures"
 METRICS_DIR = OUTPUT_DIR / "metrics"
 
-MODEL_FIGURE_DIR = FIGURE_DIR / "baseline_logistic"
+MODEL_FIGURE_DIR = FIGURE_DIR / "cross_asset_logistic"
 
 MODEL_FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 METRICS_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def time_split(df: pd.DataFrame, train_ratio=0.7, val_ratio=0.15):
+def time_split(df, train_ratio=0.7, val_ratio=0.15):
     """
     Time-based split: earliest 70% train, next 15% validation, final 15% test.
     """
@@ -50,9 +62,9 @@ def safe_roc_auc(y_true, probs):
     return roc_auc_score(y_true, probs)
 
 
-def evaluate_classifier(model, X, y, split_name: str):
+def evaluate_model(model, X, y, split_name):
     """
-    Evaluate classifier with accuracy, F1-score, and ROC-AUC.
+    Evaluate classifier with accuracy, F1, and ROC-AUC.
     """
     preds = model.predict(X)
     probs = model.predict_proba(X)[:, 1]
@@ -67,23 +79,29 @@ def evaluate_classifier(model, X, y, split_name: str):
     for k, v in metrics.items():
         print(f"{k}: {v:.4f}")
 
-    return metrics, preds, probs
+    return metrics
 
 
-def prepare_target_dataset(df: pd.DataFrame, target_stock: str):
+def prepare_target_dataset(df, target_stock, helper_stocks):
     """
-    Build baseline dataset for one target stock using only that stock's own features.
+    Build dataset for one target stock.
+    Predict next-day direction of target_stock using helper stocks' same-day returns.
     """
-    df_stock = df[df["ticker"] == target_stock].copy()
-    df_stock = df_stock.sort_values("date").reset_index(drop=True)
-    df_stock = df_stock.dropna().reset_index(drop=True)
+    cols_needed = ["date", target_stock] + helper_stocks
+    temp = df[cols_needed].copy()
 
-    return df_stock
+    temp["target_direction"] = (
+        temp[target_stock].shift(-1) > temp[target_stock]
+    ).astype(int)
+
+    temp = temp.dropna().reset_index(drop=True)
+
+    return temp
 
 
-def build_baseline_model():
+def build_logistic_model(c_value):
     """
-    Baseline logistic regression with scaling.
+    Build logistic regression pipeline with scaling and L2 regularization.
     """
     model = Pipeline(
         steps=[
@@ -91,6 +109,8 @@ def build_baseline_model():
             (
                 "logistic",
                 LogisticRegression(
+                    C=c_value,
+                    penalty="l2",
                     max_iter=1000,
                     random_state=42,
                 ),
@@ -103,7 +123,7 @@ def build_baseline_model():
 
 def plot_model_comparison(results_dict):
     """
-    Plot and save baseline test accuracy comparison.
+    Save Seaborn bar plot of test accuracy across target stocks.
     """
     rows = []
 
@@ -126,13 +146,61 @@ def plot_model_comparison(results_dict):
         order=TARGET_STOCKS,
     )
 
-    plt.title("Baseline Logistic Test Accuracy by Target Stock")
+    plt.title("Tuned Cross-Asset Logistic Test Accuracy by Target Stock")
     plt.xlabel("Target Stock")
     plt.ylabel("Test Accuracy")
     plt.ylim(0, 1)
     plt.tight_layout()
 
-    save_path = MODEL_FIGURE_DIR / "baseline_model_comparison.png"
+    save_path = MODEL_FIGURE_DIR / "cross_asset_model_comparison.png"
+    plt.savefig(save_path, dpi=300)
+    plt.close()
+
+    print(f"Saved: {save_path}")
+
+
+def plot_regularization_results(all_results):
+    """
+    Plot validation ROC-AUC for different C values.
+    This helps show how regularization affects performance.
+    """
+    rows = []
+
+    for stock, stock_results in all_results.items():
+        for c_value, c_results in stock_results["all_c_results"].items():
+            rows.append(
+                {
+                    "stock": stock,
+                    "C": float(c_value),
+                    "validation_roc_auc": c_results["validation"]["roc_auc"],
+                    "test_roc_auc": c_results["test"]["roc_auc"],
+                    "train_test_gap": (
+                        c_results["train"]["roc_auc"]
+                        - c_results["test"]["roc_auc"]
+                    ),
+                }
+            )
+
+    plot_df = pd.DataFrame(rows)
+
+    plt.figure(figsize=(10, 5))
+
+    sns.lineplot(
+        data=plot_df,
+        x="C",
+        y="validation_roc_auc",
+        hue="stock",
+        marker="o",
+    )
+
+    plt.xscale("log")
+    plt.title("Cross-Asset Logistic Regularization Tuning")
+    plt.xlabel("C Value (smaller = stronger regularization)")
+    plt.ylabel("Validation ROC-AUC")
+    plt.ylim(0, 1)
+    plt.tight_layout()
+
+    save_path = MODEL_FIGURE_DIR / "cross_asset_logistic_regularization_tuning.png"
     plt.savefig(save_path, dpi=300)
     plt.close()
 
@@ -191,12 +259,12 @@ def plot_overfit_underfit_subplots(results_dict):
     axes[0].legend(title="Data Split")
 
     plt.suptitle(
-        "Baseline Logistic Regression: Train vs Validation vs Test",
+        "Cross-Asset Logistic Regression: Train vs Validation vs Test",
         fontsize=16,
     )
     plt.tight_layout(rect=[0, 0, 1, 0.95])
 
-    save_path = MODEL_FIGURE_DIR / "baseline_logistic_overfit_underfit_subplots.png"
+    save_path = MODEL_FIGURE_DIR / "cross_asset_logistic_overfit_underfit_subplots.png"
     plt.savefig(save_path, dpi=300)
     plt.close()
 
@@ -245,10 +313,10 @@ def plot_overall_test_results_subplots(results_dict):
         ax.set_ylabel(metric_title)
         ax.set_ylim(0, 1)
 
-    plt.suptitle("Baseline Logistic Regression: Overall Test Results", fontsize=16)
+    plt.suptitle("Cross-Asset Logistic Regression: Overall Test Results", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.95])
 
-    save_path = MODEL_FIGURE_DIR / "baseline_logistic_overall_test_results_subplots.png"
+    save_path = MODEL_FIGURE_DIR / "cross_asset_logistic_overall_test_results_subplots.png"
     plt.savefig(save_path, dpi=300)
     plt.close()
 
@@ -303,15 +371,16 @@ def plot_confusion_matrices_subplots(predictions_dict):
         ax.set_xlabel("Predicted")
         ax.set_ylabel("Actual")
 
+    # Turn off the unused 6th subplot
     axes[-1].axis("off")
 
     plt.suptitle(
-        "Baseline Logistic Regression: Test Confusion Matrices",
+        "Cross-Asset Logistic Regression: Test Confusion Matrices",
         fontsize=16,
     )
     plt.tight_layout(rect=[0, 0, 1, 0.95])
 
-    save_path = MODEL_FIGURE_DIR / "baseline_logistic_confusion_matrices_subplots.png"
+    save_path = MODEL_FIGURE_DIR / "cross_asset_logistic_confusion_matrices_subplots.png"
     plt.savefig(save_path, dpi=300)
     plt.close()
 
@@ -319,75 +388,111 @@ def plot_confusion_matrices_subplots(predictions_dict):
 
 
 def main():
-    dataset_path = PROCESSED_DATA_DIR / "model_dataset.csv"
+    dataset_path = PROCESSED_DATA_DIR / "cross_asset_dataset.csv"
     df = pd.read_csv(dataset_path)
     df["date"] = pd.to_datetime(df["date"])
-
-    feature_cols = [
-        "ret_1d",
-        "ret_3d",
-        "ret_5d",
-        "ma_5",
-        "ma_10",
-        "vol_5d",
-        "volume_change_1d",
-        "spy_ret_1d",
-        "spy_ret_5d",
-    ]
 
     all_results = {}
     all_predictions = {}
 
     for target_stock in TARGET_STOCKS:
-        print("\n" + "=" * 60)
-        print(f"Training baseline logistic model for {target_stock}")
-        print("=" * 60)
+        print("\n" + "=" * 70)
+        print(f"Tuning cross-asset logistic model for {target_stock}")
+        print("=" * 70)
 
-        stock_df = prepare_target_dataset(df, target_stock)
+        helper_stocks = HELPER_MAP[target_stock]
+        print(f"Using helper stocks: {helper_stocks}")
 
-        train_df, val_df, test_df = time_split(stock_df)
+        modeling_df = prepare_target_dataset(df, target_stock, helper_stocks)
 
-        X_train = train_df[feature_cols]
+        train_df, val_df, test_df = time_split(modeling_df)
+
+        X_train = train_df[helper_stocks]
         y_train = train_df["target_direction"]
 
-        X_val = val_df[feature_cols]
+        X_val = val_df[helper_stocks]
         y_val = val_df["target_direction"]
 
-        X_test = test_df[feature_cols]
+        X_test = test_df[helper_stocks]
         y_test = test_df["target_direction"]
 
-        model = build_baseline_model()
-        model.fit(X_train, y_train)
+        best_c = None
+        best_val_auc = -1
+        best_model = None
+        all_c_results = {}
 
-        train_metrics, train_preds, train_probs = evaluate_classifier(
-            model, X_train, y_train, "Train"
-        )
-        val_metrics, val_preds, val_probs = evaluate_classifier(
-            model, X_val, y_val, "Validation"
-        )
-        test_metrics, test_preds, test_probs = evaluate_classifier(
-            model, X_test, y_test, "Test"
+        for c_value in C_VALUES:
+            print("\n" + "-" * 50)
+            print(f"Training {target_stock} with C = {c_value}")
+            print("-" * 50)
+
+            model = build_logistic_model(c_value)
+            model.fit(X_train, y_train)
+
+            train_metrics = evaluate_model(model, X_train, y_train, "Train")
+            val_metrics = evaluate_model(model, X_val, y_val, "Validation")
+            test_metrics = evaluate_model(model, X_test, y_test, "Test")
+
+            train_test_gap = train_metrics["roc_auc"] - test_metrics["roc_auc"]
+
+            print(f"Train-Test ROC-AUC Gap: {train_test_gap:.4f}")
+
+            all_c_results[str(c_value)] = {
+                "helper_stocks": helper_stocks,
+                "train": train_metrics,
+                "validation": val_metrics,
+                "test": test_metrics,
+                "train_test_roc_auc_gap": train_test_gap,
+            }
+
+            # Choose best C using validation ROC-AUC only.
+            # Do not choose based on test because that would overfit to test set.
+            if val_metrics["roc_auc"] > best_val_auc:
+                best_val_auc = val_metrics["roc_auc"]
+                best_c = c_value
+                best_model = model
+
+        print("\n" + "*" * 50)
+        print(f"Best C for {target_stock}: {best_c}")
+        print(f"Best validation ROC-AUC: {best_val_auc:.4f}")
+        print("*" * 50)
+
+        final_train_metrics = evaluate_model(best_model, X_train, y_train, "Final Train")
+        final_val_metrics = evaluate_model(best_model, X_val, y_val, "Final Validation")
+        final_test_metrics = evaluate_model(best_model, X_test, y_test, "Final Test")
+
+        final_train_test_gap = (
+            final_train_metrics["roc_auc"] - final_test_metrics["roc_auc"]
         )
 
-        all_results[target_stock] = {
-            "train": train_metrics,
-            "validation": val_metrics,
-            "test": test_metrics,
-        }
+        # Store test predictions for combined confusion matrix subplot.
+        # This does NOT save individual stock confusion matrices.
+        test_preds = best_model.predict(X_test)
 
         all_predictions[target_stock] = {
             "y_test": y_test.to_numpy(),
             "test_preds": test_preds,
         }
 
-    metrics_path = METRICS_DIR / "baseline_logistic_metrics.json"
+        all_results[target_stock] = {
+            "helper_stocks": helper_stocks,
+            "best_c": best_c,
+            "train": final_train_metrics,
+            "validation": final_val_metrics,
+            "test": final_test_metrics,
+            "train_test_roc_auc_gap": final_train_test_gap,
+            "all_c_results": all_c_results,
+        }
 
-    with open(metrics_path, "w") as f:
+    output_json = METRICS_DIR / "cross_asset_metrics.json"
+
+    with open(output_json, "w") as f:
         json.dump(all_results, f, indent=2)
 
-    print(f"\nSaved metrics to: {metrics_path}")
+    print(f"\nSaved metrics to: {output_json}")
 
     plot_model_comparison(all_results)
+    plot_regularization_results(all_results)
     plot_overfit_underfit_subplots(all_results)
     plot_overall_test_results_subplots(all_results)
     plot_confusion_matrices_subplots(all_predictions)

@@ -1,0 +1,162 @@
+{
+  "AAPL": {
+    "helper_stocks": [
+      "MSFT",
+      "GOOGL",
+      "NVDA"
+    ],
+    "best_params": {
+      "n_estimators": 25,
+      "learning_rate": 0.03,
+      "max_depth": 1,
+      "min_samples_leaf": 30,
+      "subsample": 0.7
+    },
+    "best_validation_roc_auc": 0.7052024408712309,
+    "best_train_validation_roc_auc_gap": 0.04571305208651555,
+    "train": {
+      "accuracy": 0.6792857142857143,
+      "f1": 0.6569900687547746,
+      "roc_auc": 0.7509154929577464
+    },
+    "validation": {
+      "accuracy": 0.6366666666666667,
+      "f1": 0.6175438596491228,
+      "roc_auc": 0.7052024408712309
+    },
+    "test": {
+      "accuracy": 0.5780730897009967,
+      "f1": 0.5415162454873647,
+      "roc_auc": 0.6214008125772832
+    },
+    "train_test_roc_auc_gap": 0.1295146803804632
+  },
+  "MSFT": {
+    "helper_stocks": [
+      "AAPL",
+      "GOOGL",
+      "NVDA"
+    ],
+    "best_params": {
+      "n_estimators": 75,
+      "learning_rate": 0.02,
+      "max_depth": 1,
+      "min_samples_leaf": 50,
+      "subsample": 0.7
+    },
+    "best_validation_roc_auc": 0.7197724039829303,
+    "best_train_validation_roc_auc_gap": 0.055502097763945435,
+    "train": {
+      "accuracy": 0.6921428571428572,
+      "f1": 0.6727410782080486,
+      "roc_auc": 0.7752745017468757
+    },
+    "validation": {
+      "accuracy": 0.6633333333333333,
+      "f1": 0.6353790613718412,
+      "roc_auc": 0.7197724039829303
+    },
+    "test": {
+      "accuracy": 0.627906976744186,
+      "f1": 0.5971223021582733,
+      "roc_auc": 0.6899204244031831
+    },
+    "train_test_roc_auc_gap": 0.0853540773436926
+  },
+  "GOOGL": {
+    "helper_stocks": [
+      "MSFT",
+      "AAPL",
+      "AMZN"
+    ],
+    "best_params": {
+      "n_estimators": 75,
+      "learning_rate": 0.02,
+      "max_depth": 1,
+      "min_samples_leaf": 50,
+      "subsample": 0.7
+    },
+    "best_validation_roc_auc": 0.7165310568671912,
+    "best_train_validation_roc_auc_gap": 0.05033357908362268,
+    "train": {
+      "accuracy": 0.6964285714285714,
+      "f1": 0.7038327526132404,
+      "roc_auc": 0.7668646359508139
+    },
+    "validation": {
+      "accuracy": 0.67,
+      "f1": 0.6796116504854369,
+      "roc_auc": 0.7165310568671912
+    },
+    "test": {
+      "accuracy": 0.6179401993355482,
+      "f1": 0.6254071661237784,
+      "roc_auc": 0.6778393966282165
+    },
+    "train_test_roc_auc_gap": 0.08902523932259743
+  },
+  "AMZN": {
+    "helper_stocks": [
+      "MSFT",
+      "AAPL",
+      "GOOGL"
+    ],
+    "best_params": {
+      "n_estimators": 25,
+      "learning_rate": 0.03,
+      "max_depth": 1,
+      "min_samples_leaf": 30,
+      "subsample": 0.7
+    },
+    "best_validation_roc_auc": 0.7411440508467043,
+    "best_train_validation_roc_auc_gap": -0.0005349438335858769,
+    "train": {
+      "accuracy": 0.6771428571428572,
+      "f1": 0.6710334788937409,
+      "roc_auc": 0.7406091070131184
+    },
+    "validation": {
+      "accuracy": 0.67,
+      "f1": 0.6476868327402135,
+      "roc_auc": 0.7411440508467043
+    },
+    "test": {
+      "accuracy": 0.6710963455149501,
+      "f1": 0.6621160409556314,
+      "roc_auc": 0.7484297593772117
+    },
+    "train_test_roc_auc_gap": -0.007820652364093239
+  },
+  "META": {
+    "helper_stocks": [
+      "GOOGL",
+      "MSFT",
+      "AAPL"
+    ],
+    "best_params": {
+      "n_estimators": 100,
+      "learning_rate": 0.01,
+      "max_depth": 1,
+      "min_samples_leaf": 50,
+      "subsample": 0.8
+    },
+    "best_validation_roc_auc": 0.7039423974398862,
+    "best_train_validation_roc_auc_gap": 0.04870855098220006,
+    "train": {
+      "accuracy": 0.6857142857142857,
+      "f1": 0.6681749622926093,
+      "roc_auc": 0.7526509484220862
+    },
+    "validation": {
+      "accuracy": 0.63,
+      "f1": 0.5904059040590406,
+      "roc_auc": 0.7039423974398862
+    },
+    "test": {
+      "accuracy": 0.584717607973422,
+      "f1": 0.570446735395189,
+      "roc_auc": 0.63154398086633
+    },
+    "train_test_roc_auc_gap": 0.12110696755575623
+  }
+}

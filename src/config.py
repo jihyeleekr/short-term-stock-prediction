@@ -8,7 +8,10 @@ PROCESSED_DATA_DIR = DATA_DIR / "processed"
 OUTPUT_DIR = BASE_DIR / "outputs"
 
 # Stock universe for initial MVP
-TICKERS = ["AAPL", "MSFT", "GOOGL", "AMZN", "FB"]
+TICKERS = [
+    "AAPL", "MSFT", "GOOGL", "AMZN", "META",
+    "NVDA", "AMD", "INTC", "AVGO", "QCOM", "TSM"
+]
 MARKET_TICKER= "SPY"
 
 # Date range

@@ -1,0 +1,582 @@
+{
+  "AAPL": {
+    "helper_stocks": [
+      "MSFT",
+      "GOOGL",
+      "NVDA"
+    ],
+    "best_c": 0.5,
+    "train": {
+      "accuracy": 0.67,
+      "f1": 0.658284023668639,
+      "roc_auc": 0.7405164319248827
+    },
+    "validation": {
+      "accuracy": 0.6666666666666666,
+      "f1": 0.6575342465753424,
+      "roc_auc": 0.709367066054964
+    },
+    "test": {
+      "accuracy": 0.5813953488372093,
+      "f1": 0.5625,
+      "roc_auc": 0.6403020667726549
+    },
+    "train_test_roc_auc_gap": 0.10021436515222781,
+    "all_c_results": {
+      "0.01": {
+        "helper_stocks": [
+          "MSFT",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.6721428571428572,
+          "f1": 0.6582278481012658,
+          "roc_auc": 0.7402837313737497
+        },
+        "validation": {
+          "accuracy": 0.6666666666666666,
+          "f1": 0.6551724137931034,
+          "roc_auc": 0.7062937062937064
+        },
+        "train_validation_roc_auc_gap": 0.03399002508004334
+      },
+      "0.05": {
+        "helper_stocks": [
+          "MSFT",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.6707142857142857,
+          "f1": 0.6592756836659276,
+          "roc_auc": 0.7407266789140641
+        },
+        "validation": {
+          "accuracy": 0.67,
+          "f1": 0.6621160409556314,
+          "roc_auc": 0.7084316956928423
+        },
+        "train_validation_roc_auc_gap": 0.03229498322122182
+      },
+      "0.1": {
+        "helper_stocks": [
+          "MSFT",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.6714285714285714,
+          "f1": 0.6592592592592592,
+          "roc_auc": 0.7406817717901613
+        },
+        "validation": {
+          "accuracy": 0.66,
+          "f1": 0.6530612244897959,
+          "roc_auc": 0.7084316956928421
+        },
+        "train_validation_roc_auc_gap": 0.032250076097319114
+      },
+      "0.5": {
+        "helper_stocks": [
+          "MSFT",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.67,
+          "f1": 0.658284023668639,
+          "roc_auc": 0.7405164319248827
+        },
+        "validation": {
+          "accuracy": 0.6666666666666666,
+          "f1": 0.6575342465753424,
+          "roc_auc": 0.709367066054964
+        },
+        "train_validation_roc_auc_gap": 0.031149365869918677
+      },
+      "1.0": {
+        "helper_stocks": [
+          "MSFT",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.67,
+          "f1": 0.658284023668639,
+          "roc_auc": 0.7405327617881201
+        },
+        "validation": {
+          "accuracy": 0.6633333333333333,
+          "f1": 0.6529209621993127,
+          "roc_auc": 0.7091443588258874
+        },
+        "train_validation_roc_auc_gap": 0.031388402962232664
+      }
+    }
+  },
+  "MSFT": {
+    "helper_stocks": [
+      "AAPL",
+      "GOOGL",
+      "NVDA"
+    ],
+    "best_c": 1.0,
+    "train": {
+      "accuracy": 0.6885714285714286,
+      "f1": 0.6588419405320813,
+      "roc_auc": 0.7605890927080969
+    },
+    "validation": {
+      "accuracy": 0.68,
+      "f1": 0.6521739130434783,
+      "roc_auc": 0.7266625177809387
+    },
+    "test": {
+      "accuracy": 0.6411960132890365,
+      "f1": 0.6170212765957447,
+      "roc_auc": 0.7047745358090186
+    },
+    "train_test_roc_auc_gap": 0.05581455689907833,
+    "all_c_results": {
+      "0.01": {
+        "helper_stocks": [
+          "AAPL",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.6842857142857143,
+          "f1": 0.6519685039370079,
+          "roc_auc": 0.7596671021079036
+        },
+        "validation": {
+          "accuracy": 0.67,
+          "f1": 0.6292134831460674,
+          "roc_auc": 0.7262179943100996
+        },
+        "train_validation_roc_auc_gap": 0.03344910779780397
+      },
+      "0.05": {
+        "helper_stocks": [
+          "AAPL",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.6864285714285714,
+          "f1": 0.6578332034294622,
+          "roc_auc": 0.7603805715523991
+        },
+        "validation": {
+          "accuracy": 0.67,
+          "f1": 0.64,
+          "roc_auc": 0.7261290896159317
+        },
+        "train_validation_roc_auc_gap": 0.03425148193646743
+      },
+      "0.1": {
+        "helper_stocks": [
+          "AAPL",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.6878571428571428,
+          "f1": 0.6593920498830865,
+          "roc_auc": 0.760501186730695
+        },
+        "validation": {
+          "accuracy": 0.68,
+          "f1": 0.6496350364963503,
+          "roc_auc": 0.7265291607396871
+        },
+        "train_validation_roc_auc_gap": 0.033972025991007904
+      },
+      "0.5": {
+        "helper_stocks": [
+          "AAPL",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.6892857142857143,
+          "f1": 0.6598905394839718,
+          "roc_auc": 0.7605809154078735
+        },
+        "validation": {
+          "accuracy": 0.68,
+          "f1": 0.6521739130434783,
+          "roc_auc": 0.7266180654338549
+        },
+        "train_validation_roc_auc_gap": 0.03396284997401866
+      },
+      "1.0": {
+        "helper_stocks": [
+          "AAPL",
+          "GOOGL",
+          "NVDA"
+        ],
+        "train": {
+          "accuracy": 0.6885714285714286,
+          "f1": 0.6588419405320813,
+          "roc_auc": 0.7605890927080969
+        },
+        "validation": {
+          "accuracy": 0.68,
+          "f1": 0.6521739130434783,
+          "roc_auc": 0.7266625177809387
+        },
+        "train_validation_roc_auc_gap": 0.033926574927158226
+      }
+    }
+  },
+  "GOOGL": {
+    "helper_stocks": [
+      "MSFT",
+      "AAPL",
+      "AMZN"
+    ],
+    "best_c": 0.01,
+    "train": {
+      "accuracy": 0.6871428571428572,
+      "f1": 0.6889204545454546,
+      "roc_auc": 0.7506750344405327
+    },
+    "validation": {
+      "accuracy": 0.6933333333333334,
+      "f1": 0.6912751677852349,
+      "roc_auc": 0.7280245431505936
+    },
+    "test": {
+      "accuracy": 0.6146179401993356,
+      "f1": 0.6027397260273972,
+      "roc_auc": 0.689396628216504
+    },
+    "train_test_roc_auc_gap": 0.06127840622402869,
+    "all_c_results": {
+      "0.01": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "AMZN"
+        ],
+        "train": {
+          "accuracy": 0.6871428571428572,
+          "f1": 0.6889204545454546,
+          "roc_auc": 0.7506750344405327
+        },
+        "validation": {
+          "accuracy": 0.6933333333333334,
+          "f1": 0.6912751677852349,
+          "roc_auc": 0.7280245431505936
+        },
+        "train_validation_roc_auc_gap": 0.022650491289939123
+      },
+      "0.05": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "AMZN"
+        ],
+        "train": {
+          "accuracy": 0.6878571428571428,
+          "f1": 0.6902905740609497,
+          "roc_auc": 0.7516138578498903
+        },
+        "validation": {
+          "accuracy": 0.6966666666666667,
+          "f1": 0.6956521739130435,
+          "roc_auc": 0.7266017518118358
+        },
+        "train_validation_roc_auc_gap": 0.025012106038054482
+      },
+      "0.1": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "AMZN"
+        ],
+        "train": {
+          "accuracy": 0.685,
+          "f1": 0.6870120652945352,
+          "roc_auc": 0.7516873309862748
+        },
+        "validation": {
+          "accuracy": 0.6966666666666667,
+          "f1": 0.6956521739130435,
+          "roc_auc": 0.7260237428304654
+        },
+        "train_validation_roc_auc_gap": 0.02566358815580938
+      },
+      "0.5": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "AMZN"
+        ],
+        "train": {
+          "accuracy": 0.6835714285714286,
+          "f1": 0.6846975088967971,
+          "roc_auc": 0.7517505995203837
+        },
+        "validation": {
+          "accuracy": 0.6933333333333334,
+          "f1": 0.6933333333333334,
+          "roc_auc": 0.7257569694544485
+        },
+        "train_validation_roc_auc_gap": 0.025993630065935247
+      },
+      "1.0": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "AMZN"
+        ],
+        "train": {
+          "accuracy": 0.6835714285714286,
+          "f1": 0.6846975088967971,
+          "roc_auc": 0.7517424358385631
+        },
+        "validation": {
+          "accuracy": 0.69,
+          "f1": 0.6910299003322259,
+          "roc_auc": 0.7258458939131208
+        },
+        "train_validation_roc_auc_gap": 0.02589654192544233
+      }
+    }
+  },
+  "AMZN": {
+    "helper_stocks": [
+      "MSFT",
+      "AAPL",
+      "GOOGL"
+    ],
+    "best_c": 0.01,
+    "train": {
+      "accuracy": 0.6728571428571428,
+      "f1": 0.670028818443804,
+      "roc_auc": 0.7335406819647506
+    },
+    "validation": {
+      "accuracy": 0.6733333333333333,
+      "f1": 0.6643835616438356,
+      "roc_auc": 0.7380772478776835
+    },
+    "test": {
+      "accuracy": 0.654485049833887,
+      "f1": 0.6462585034013606,
+      "roc_auc": 0.7482307147912244
+    },
+    "train_test_roc_auc_gap": -0.014690032826473742,
+    "all_c_results": {
+      "0.01": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "GOOGL"
+        ],
+        "train": {
+          "accuracy": 0.6728571428571428,
+          "f1": 0.670028818443804,
+          "roc_auc": 0.7335406819647506
+        },
+        "validation": {
+          "accuracy": 0.6733333333333333,
+          "f1": 0.6643835616438356,
+          "roc_auc": 0.7380772478776835
+        },
+        "train_validation_roc_auc_gap": -0.004536565912932833
+      },
+      "0.05": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "GOOGL"
+        ],
+        "train": {
+          "accuracy": 0.6764285714285714,
+          "f1": 0.673866090712743,
+          "roc_auc": 0.7338876235724372
+        },
+        "validation": {
+          "accuracy": 0.6766666666666666,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.7372772123205475
+        },
+        "train_validation_roc_auc_gap": -0.0033895887481103504
+      },
+      "0.1": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "GOOGL"
+        ],
+        "train": {
+          "accuracy": 0.675,
+          "f1": 0.6724262059035278,
+          "roc_auc": 0.7340427268794031
+        },
+        "validation": {
+          "accuracy": 0.6733333333333333,
+          "f1": 0.6620689655172414,
+          "roc_auc": 0.7370105338015023
+        },
+        "train_validation_roc_auc_gap": -0.002967806922099192
+      },
+      "0.5": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "GOOGL"
+        ],
+        "train": {
+          "accuracy": 0.6771428571428572,
+          "f1": 0.6752873563218391,
+          "roc_auc": 0.7342080343513008
+        },
+        "validation": {
+          "accuracy": 0.6733333333333333,
+          "f1": 0.6620689655172414,
+          "roc_auc": 0.7359882661451619
+        },
+        "train_validation_roc_auc_gap": -0.001780231793861109
+      },
+      "1.0": {
+        "helper_stocks": [
+          "MSFT",
+          "AAPL",
+          "GOOGL"
+        ],
+        "train": {
+          "accuracy": 0.6757142857142857,
+          "f1": 0.6743185078909613,
+          "roc_auc": 0.7342447693450558
+        },
+        "validation": {
+          "accuracy": 0.6733333333333333,
+          "f1": 0.6620689655172414,
+          "roc_auc": 0.7360327125650028
+        },
+        "train_validation_roc_auc_gap": -0.001787943219947019
+      }
+    }
+  },
+  "META": {
+    "helper_stocks": [
+      "GOOGL",
+      "MSFT",
+      "AAPL"
+    ],
+    "best_c": 0.01,
+    "train": {
+      "accuracy": 0.6685714285714286,
+      "f1": 0.65424739195231,
+      "roc_auc": 0.7399937540695504
+    },
+    "validation": {
+      "accuracy": 0.65,
+      "f1": 0.631578947368421,
+      "roc_auc": 0.7249211076047823
+    },
+    "test": {
+      "accuracy": 0.6046511627906976,
+      "f1": 0.6072607260726073,
+      "roc_auc": 0.6497918327575517
+    },
+    "train_test_roc_auc_gap": 0.09020192131199867,
+    "all_c_results": {
+      "0.01": {
+        "helper_stocks": [
+          "GOOGL",
+          "MSFT",
+          "AAPL"
+        ],
+        "train": {
+          "accuracy": 0.6685714285714286,
+          "f1": 0.65424739195231,
+          "roc_auc": 0.7399937540695504
+        },
+        "validation": {
+          "accuracy": 0.65,
+          "f1": 0.631578947368421,
+          "roc_auc": 0.7249211076047823
+        },
+        "train_validation_roc_auc_gap": 0.015072646464768025
+      },
+      "0.05": {
+        "helper_stocks": [
+          "GOOGL",
+          "MSFT",
+          "AAPL"
+        ],
+        "train": {
+          "accuracy": 0.6671428571428571,
+          "f1": 0.6543026706231454,
+          "roc_auc": 0.7409428905594599
+        },
+        "validation": {
+          "accuracy": 0.6433333333333333,
+          "f1": 0.6219081272084805,
+          "roc_auc": 0.717142984132628
+        },
+        "train_validation_roc_auc_gap": 0.02379990642683194
+      },
+      "0.1": {
+        "helper_stocks": [
+          "GOOGL",
+          "MSFT",
+          "AAPL"
+        ],
+        "train": {
+          "accuracy": 0.6692857142857143,
+          "f1": 0.6567828020756116,
+          "roc_auc": 0.7410653597839643
+        },
+        "validation": {
+          "accuracy": 0.6366666666666667,
+          "f1": 0.6120996441281139,
+          "roc_auc": 0.7144761989421752
+        },
+        "train_validation_roc_auc_gap": 0.026589160841789083
+      },
+      "0.5": {
+        "helper_stocks": [
+          "GOOGL",
+          "MSFT",
+          "AAPL"
+        ],
+        "train": {
+          "accuracy": 0.6685714285714286,
+          "f1": 0.6552748885586924,
+          "roc_auc": 0.7412286520833036
+        },
+        "validation": {
+          "accuracy": 0.6366666666666667,
+          "f1": 0.6120996441281139,
+          "roc_auc": 0.7116760744921997
+        },
+        "train_validation_roc_auc_gap": 0.029552577591103857
+      },
+      "1.0": {
+        "helper_stocks": [
+          "GOOGL",
+          "MSFT",
+          "AAPL"
+        ],
+        "train": {
+          "accuracy": 0.6685714285714286,
+          "f1": 0.6552748885586924,
+          "roc_auc": 0.7413000924642645
+        },
+        "validation": {
+          "accuracy": 0.6366666666666667,
+          "f1": 0.6120996441281139,
+          "roc_auc": 0.7109649317747456
+        },
+        "train_validation_roc_auc_gap": 0.030335160689518914
+      }
+    }
+  }
+}
