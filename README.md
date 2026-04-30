@@ -367,114 +367,89 @@ ROC-AUC measures how well the model separates up days from down days. This is on
 
 ---
 
-## Visualizations
+## Visualizations and Results
 
-The project creates both static PNG visualizations and interactive Plotly HTML visualizations. The static plots are useful for quickly viewing results directly in the README, while the interactive HTML plots allow users to explore the data more deeply by hovering, zooming, and filtering.
+This project focuses on model-related visualizations that compare performance, show overfitting behavior, and support the final results. Static PNG plots are saved under `outputs/figures/`, and interactive Plotly HTML files are saved under `outputs/figures/interactive/`.
 
-### Stock-Level Visualizations
+### Train / Validation / Test Comparison
 
-Stock-level plots are created by:
+These plots compare train, validation, and test performance for each model using Accuracy, F1 score, and ROC-AUC. They are used to check whether the models are overfitting or generalizing well to later unseen data.
 
-```bash
-python src/plot_stock_visualizations.py
-```
+#### Baseline Logistic Regression
 
-These plots are saved in separate folders for each stock:
+![Baseline Logistic Regression Train Validation Test](outputs/figures/baseline_logistic/baseline_logistic_overfit_underfit_subplots.png)
 
-```text
-outputs/figures/AAPL/
-outputs/figures/MSFT/
-outputs/figures/GOOGL/
-outputs/figures/AMZN/
-outputs/figures/META/
-```
+The baseline logistic regression uses only the target stock’s own historical features. The plot shows weak generalization, especially in F1 score. Several stocks have much higher training F1 than validation or test F1, which suggests overfitting and poor ability to predict both classes consistently. This supports the need for additional cross-asset features.
 
-The stock-level visualizations show closing price, daily returns, and 5-day rolling volatility. These plots help show how each stock behaves before modeling.
+#### Cross-Asset Logistic Regression
 
-#### Example: AAPL Closing Price
+![Cross-Asset Logistic Regression Train Validation Test](outputs/figures/cross_asset_logistic/cross_asset_logistic_overfit_underfit_subplots.png)
 
-![AAPL Closing Price](outputs/figures/AAPL/AAPL_price.png)
+The cross-asset logistic regression model uses related stocks as helper signals. Compared to the baseline, it generally has stronger validation and test performance. It still shows some train-test gap, especially in ROC-AUC, but the gap is smaller than the baseline. This suggests that cross-asset features improve generalization.
 
-This plot shows the closing price trend for AAPL over time. It helps provide context for the prediction task because the model is trying to predict the next-day direction of price movement.
-
-#### Example: AAPL Daily Returns
-
-![AAPL Daily Returns](outputs/figures/AAPL/AAPL_returns.png)
-
-This plot shows AAPL’s daily return values. Daily returns are more useful for modeling than raw prices because they show relative day-to-day movement and make stocks with different price levels easier to compare.
-
-#### Example: AAPL 5-Day Rolling Volatility
-
-![AAPL 5-Day Rolling Volatility](outputs/figures/AAPL/AAPL_volatility.png)
-
-This plot shows short-term volatility using a 5-day rolling window. Volatility is included because periods of high movement may affect how difficult next-day direction prediction becomes.
-
----
-
-### Model-Specific Visualizations
-
-Each model saves its own plots in a separate folder:
-
-```text
-outputs/figures/baseline_logistic/
-outputs/figures/cross_asset_logistic/
-outputs/figures/random_forest/
-outputs/figures/gradient_boosting/
-```
-
-These plots include train/validation/test metric comparisons, overall test results, combined confusion matrices, and feature importance plots for tree-based models.
-
-#### Baseline Logistic Regression: Train vs Validation vs Test
-
-![Baseline Logistic Train Validation Test](outputs/figures/baseline_logistic/baseline_logistic_overfit_underfit_subplots.png)
-
-The baseline logistic regression uses only the target stock’s own features. This plot shows that the baseline has weak generalization, especially in F1 score. The training F1 is higher than validation and test F1 for several stocks, which suggests that the model learns some training patterns but does not generalize well to later data.
-
-#### Cross-Asset Logistic Regression: Train vs Validation vs Test
-
-![Cross-Asset Logistic Train Validation Test](outputs/figures/cross_asset_logistic/cross_asset_logistic_overfit_underfit_subplots.png)
-
-The cross-asset logistic regression uses helper stocks as predictive signals. Compared to the baseline, this model has stronger validation and test performance. It still shows some train-test gap, especially in ROC-AUC, so it is not completely free from overfitting. However, the gap is smaller and the test performance is stronger than the baseline.
-
-#### Random Forest: Train vs Validation vs Test
+#### Cross-Asset Random Forest
 
 ![Random Forest Train Validation Test](outputs/figures/random_forest/random_forest_overfit_underfit_subplots.png)
 
-The Random Forest model captures nonlinear relationships between helper stocks and the target stock. This plot shows some overfitting because the training scores are often higher than validation and test scores. However, the model still improves over the baseline in several metrics.
+The Random Forest model captures nonlinear relationships between helper stocks and the target stock. The plot shows some overfitting because training scores are often higher than validation and test scores. However, it still improves over the baseline in several metrics, especially F1 and ROC-AUC.
 
-#### Gradient Boosting: Train vs Validation vs Test
+#### Cross-Asset Gradient Boosting
 
 ![Gradient Boosting Train Validation Test](outputs/figures/gradient_boosting/gradient_boosting_overfit_underfit_subplots.png)
 
-Gradient Boosting also uses cross-asset helper features and can capture nonlinear patterns. The model shows mild overfitting, but the use of shallow trees and regularized parameters helps control the gap between training and test performance.
+Gradient Boosting also uses cross-asset helper features and can capture nonlinear patterns. The model shows mild overfitting, but the use of shallow trees, smaller learning rates, and tuned parameters helps reduce the train-test gap.
 
 ---
 
-### Model Comparison Visualizations
+### Overall Model Comparison
 
-Model comparison plots are saved in:
+These plots compare all models on the test set. They directly support the project goal of determining whether cross-asset information improves prediction performance.
 
-```text
-outputs/figures/model_comparison/
-```
-
-They compare all models using test accuracy, test F1 score, test ROC-AUC, and average test performance.
-
-#### Overall Model Comparison
+#### Test Metrics by Stock
 
 ![Overall Model Comparison](outputs/figures/model_comparison/model_comparison_test_metrics_subplots.png)
 
-This plot compares the baseline model, cross-asset logistic regression, cross-asset Random Forest, and cross-asset Gradient Boosting across the five target stocks. The results show that cross-asset models generally outperform the baseline. This supports the main project hypothesis that related technology stocks provide useful predictive signals for next-day stock direction.
+This plot compares the baseline model, cross-asset logistic regression, cross-asset Random Forest, and cross-asset Gradient Boosting across the five target stocks. The baseline logistic regression is generally the weakest model. The cross-asset models usually perform better, supporting the main project hypothesis that related technology stocks provide useful signals for next-day stock direction prediction.
 
 #### Average Test Performance by Model
 
-![Average Test Performance](outputs/figures/model_comparison/average_test_performance_by_model_subplots.png)
+![Average Test Performance by Model](outputs/figures/model_comparison/average_test_performance_by_model_subplots.png)
 
-This plot summarizes the average test performance across all target stocks. It is useful for comparing the overall behavior of each model rather than focusing on a single stock. The cross-asset models usually have stronger F1 and ROC-AUC than the baseline, showing that helper stock information improves the prediction task.
+This plot summarizes average test performance across all target stocks. It gives a clearer overall comparison than looking at a single stock. The cross-asset models generally improve over the baseline, especially for F1 score and ROC-AUC.
 
 ---
 
-### Feature Importance Visualizations
+### Confusion Matrix Results
+
+Confusion matrices show how often each model predicts up or down correctly. These plots are useful because accuracy alone can hide whether a model is biased toward one class.
+
+#### Baseline Logistic Regression Confusion Matrices
+
+![Baseline Logistic Confusion Matrices](outputs/figures/baseline_logistic/baseline_logistic_confusion_matrices_subplots.png)
+
+The baseline confusion matrices show that the baseline model often struggles to classify both directions consistently. This explains why the baseline F1 scores are weak for several stocks.
+
+#### Cross-Asset Logistic Regression Confusion Matrices
+
+![Cross-Asset Logistic Confusion Matrices](outputs/figures/cross_asset_logistic/cross_asset_logistic_confusion_matrices_subplots.png)
+
+The cross-asset logistic model generally produces more balanced predictions than the baseline. This supports the idea that related stock movements add useful information beyond the target stock’s own features.
+
+#### Random Forest Confusion Matrices
+
+![Random Forest Confusion Matrices](outputs/figures/random_forest/random_forest_confusion_matrices_subplots.png)
+
+The Random Forest confusion matrices show how the nonlinear model performs across each target stock. This helps identify where the model improves and where it still confuses up and down days.
+
+#### Gradient Boosting Confusion Matrices
+
+![Gradient Boosting Confusion Matrices](outputs/figures/gradient_boosting/gradient_boosting_confusion_matrices_subplots.png)
+
+The Gradient Boosting confusion matrices show similar model behavior for the boosted tree model. These results help compare whether the model is improving both classes or mainly improving one class.
+
+---
+
+### Feature Importance
 
 Tree-based models provide feature importance values, which help explain which helper stocks contributed most to predictions.
 
@@ -482,48 +457,35 @@ Tree-based models provide feature importance values, which help explain which he
 
 ![Random Forest Feature Importance](outputs/figures/random_forest/random_forest_feature_importance_subplots.png)
 
-This plot shows which helper stocks were most important for the Random Forest model for each target stock. This helps interpret whether related companies, such as other large technology or semiconductor stocks, were useful predictive signals.
+This plot shows which helper stocks contributed most to Random Forest predictions for each target stock. It helps interpret whether related technology or semiconductor stocks were useful predictive signals.
 
 #### Gradient Boosting Feature Importance
 
 ![Gradient Boosting Feature Importance](outputs/figures/gradient_boosting/gradient_boosting_feature_importance_subplots.png)
 
-This plot shows the feature importance values for the Gradient Boosting model. Like Random Forest, it helps explain which cross-asset helper stocks contributed most to prediction.
+This plot shows which helper stocks contributed most to Gradient Boosting predictions. Comparing feature importance across tree-based models helps interpret the role of cross-asset features.
 
 ---
 
-### Interactive Visualizations
+### Interactive Model Visualization
 
 In addition to static PNG figures, this project includes interactive Plotly visualizations saved as HTML files.
 
-These files are saved in:
+The main model-related interactive visualization is:
 
 ```text
-outputs/figures/interactive/
+outputs/figures/interactive/interactive_model_comparison.html
 ```
 
-The interactive visualizations include:
+This file can be opened in a web browser and allows users to hover, zoom, and compare model performance interactively.
 
-```text
-interactive_stock_prices.html
-interactive_daily_returns.html
-interactive_volatility.html
-interactive_correlation_matrix.html
-interactive_model_comparison.html
-```
-
-These HTML files can be opened in a web browser. They allow users to hover over data points, zoom into specific time periods, pan across charts, and compare stocks or models interactively.
-
-To open an interactive visualization locally, run:
+To open it locally, run:
 
 ```bash
 open outputs/figures/interactive/interactive_model_comparison.html
 ```
 
 or double-click the `.html` file in the project folder.
-
-The interactive plots make the results easier to explore than static figures alone. For example, the interactive model comparison chart allows users to compare model performance across target stocks, while the interactive correlation heatmap helps show relationships between stock returns.
-
 ---
 
 ## Testing and GitHub Workflow
