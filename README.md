@@ -95,9 +95,6 @@ The main research question is:
 ## Repository Structure
 
 ```text
-## Repository Structure
-
-```text
 .
 ├── data/
 │   ├── raw/
