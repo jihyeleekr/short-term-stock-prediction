@@ -95,48 +95,21 @@ The main research question is:
 ## Repository Structure
 
 ```text
-.
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── outputs/
-│   ├── figures/
-│   │   ├── AAPL/
-│   │   ├── MSFT/
-│   │   ├── GOOGL/
-│   │   ├── AMZN/
-│   │   ├── META/
-│   │   ├── baseline_logistic/
-│   │   ├── cross_asset_logistic/
-│   │   ├── random_forest/
-│   │   ├── gradient_boosting/
-│   │   ├── model_comparison/
-│   │   └── interactive/
-│   │
-│   └── metrics/
-│
-├── src/
-│   ├── preprocessing.py
-│   ├── plot_stock_visualizations.py
-│   ├── plot_interactive_visualizations.py
-│   ├── train_classification.py
-│   ├── train_cross_asset_model.py
-│   ├── train_cross_asset_random_forest.py
-│   ├── train_cross_asset_gradient_boosting.py
-│   ├── compare_models.py
-│   └── plot_train_val_test_comparison.py
-│
-├── tests/
-│   └── test_core.py
-│
-├── .github/
-│   └── workflows/
-│       └── tests.yml
-│
-├── Makefile
-├── requirements.txt
-└── README.md
+src/
+├── analyze_correlation.py
+├── build_cross_features.py
+├── compare_models.py
+├── config.py
+├── data_collection.py
+├── plot_confusion_comparison.py
+├── plot_interactive_visualizations.py
+├── plot_stock_visualizations.py
+├── plot_train_val_test_comparison.py
+├── preprocessing.py
+├── train_classification.py
+├── train_cross_asset_gradient_boosting.py
+├── train_cross_asset_model.py
+└── train_cross_asset_random_forest.py
 ```
 
 ---

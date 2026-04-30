@@ -102,30 +102,30 @@
       "GOOGL"
     ],
     "best_params": {
-      "n_estimators": 25,
-      "learning_rate": 0.03,
+      "n_estimators": 50,
+      "learning_rate": 0.02,
       "max_depth": 1,
       "min_samples_leaf": 30,
       "subsample": 0.7
     },
-    "best_validation_roc_auc": 0.7411440508467043,
-    "best_train_validation_roc_auc_gap": -0.0005349438335858769,
+    "best_validation_roc_auc": 0.7420552024534423,
+    "best_train_validation_roc_auc_gap": -0.0013430333745110268,
     "train": {
-      "accuracy": 0.6771428571428572,
-      "f1": 0.6710334788937409,
-      "roc_auc": 0.7406091070131184
+      "accuracy": 0.6757142857142857,
+      "f1": 0.6661764705882353,
+      "roc_auc": 0.7407121690789312
     },
     "validation": {
-      "accuracy": 0.67,
-      "f1": 0.6476868327402135,
-      "roc_auc": 0.7411440508467043
+      "accuracy": 0.6633333333333333,
+      "f1": 0.6379928315412187,
+      "roc_auc": 0.7420552024534423
     },
     "test": {
-      "accuracy": 0.6710963455149501,
-      "f1": 0.6621160409556314,
-      "roc_auc": 0.7484297593772117
+      "accuracy": 0.6611295681063123,
+      "f1": 0.6458333333333334,
+      "roc_auc": 0.7493807501769285
     },
-    "train_test_roc_auc_gap": -0.007820652364093239
+    "train_test_roc_auc_gap": -0.008668581097997285
   },
   "META": {
     "helper_stocks": [

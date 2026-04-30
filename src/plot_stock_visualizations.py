@@ -12,29 +12,17 @@ FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def get_stock_figure_dir(ticker: str):
-    """
-    Create and return a separate figure directory for each stock.
-    Example: outputs/figures/AAPL/
-    """
     stock_dir = FIGURE_DIR / ticker
     stock_dir.mkdir(parents=True, exist_ok=True)
     return stock_dir
 
 
 def plot_price(df: pd.DataFrame, ticker: str):
-    """
-    Plot and save closing price over time.
-    """
     df_ticker = df[df["ticker"] == ticker].copy()
     stock_dir = get_stock_figure_dir(ticker)
 
     plt.figure(figsize=(9, 4))
-
-    sns.lineplot(
-        data=df_ticker,
-        x="date",
-        y="close",
-    )
+    sns.lineplot(data=df_ticker, x="date", y="close")
 
     plt.title(f"{ticker} Closing Price Over Time")
     plt.xlabel("Date")
@@ -50,19 +38,11 @@ def plot_price(df: pd.DataFrame, ticker: str):
 
 
 def plot_returns(df: pd.DataFrame, ticker: str):
-    """
-    Plot and save daily returns over time.
-    """
     df_ticker = df[df["ticker"] == ticker].copy()
     stock_dir = get_stock_figure_dir(ticker)
 
     plt.figure(figsize=(9, 4))
-
-    sns.lineplot(
-        data=df_ticker,
-        x="date",
-        y="ret_1d",
-    )
+    sns.lineplot(data=df_ticker, x="date", y="ret_1d")
 
     plt.title(f"{ticker} Daily Returns")
     plt.xlabel("Date")
@@ -78,19 +58,11 @@ def plot_returns(df: pd.DataFrame, ticker: str):
 
 
 def plot_volatility(df: pd.DataFrame, ticker: str):
-    """
-    Plot and save 5-day rolling volatility.
-    """
     df_ticker = df[df["ticker"] == ticker].copy()
     stock_dir = get_stock_figure_dir(ticker)
 
     plt.figure(figsize=(9, 4))
-
-    sns.lineplot(
-        data=df_ticker,
-        x="date",
-        y="vol_5d",
-    )
+    sns.lineplot(data=df_ticker, x="date", y="vol_5d")
 
     plt.title(f"{ticker} 5-Day Rolling Volatility")
     plt.xlabel("Date")

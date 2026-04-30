@@ -108,24 +108,24 @@
       "min_samples_split": 20,
       "max_features": "sqrt"
     },
-    "best_validation_roc_auc": 0.7370327570114227,
-    "best_train_validation_roc_auc_gap": 0.01213152188064981,
+    "best_validation_roc_auc": 0.7369883105915818,
+    "best_train_validation_roc_auc_gap": 0.012186172465422862,
     "train": {
       "accuracy": 0.6892857142857143,
       "f1": 0.6859205776173285,
-      "roc_auc": 0.7491642788920725
+      "roc_auc": 0.7491744830570046
     },
     "validation": {
       "accuracy": 0.6833333333333333,
       "f1": 0.6666666666666666,
-      "roc_auc": 0.7370327570114227
+      "roc_auc": 0.7369883105915818
     },
     "test": {
       "accuracy": 0.6677740863787376,
       "f1": 0.6666666666666666,
       "roc_auc": 0.7449133050247698
     },
-    "train_test_roc_auc_gap": 0.004250973867302665
+    "train_test_roc_auc_gap": 0.0042611780322348025
   },
   "META": {
     "helper_stocks": [

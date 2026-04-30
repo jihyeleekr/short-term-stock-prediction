@@ -43,15 +43,17 @@ def add_stock_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df = df.sort_values("date").reset_index(drop=True)
 
-    df["ret_1d"] = df["close"].pct_change(1)
-    df["ret_3d"] = df["close"].pct_change(3)
-    df["ret_5d"] = df["close"].pct_change(5)
+    df["ret_1d"] = df["close"].pct_change(1, fill_method=None)
+    df["ret_3d"] = df["close"].pct_change(3, fill_method=None)
+    df["ret_5d"] = df["close"].pct_change(5, fill_method=None)
+    df["vol_5d"] = df["close"].pct_change(fill_method=None).rolling(5).std()
+    df["volume_change_1d"] = df["volume"].pct_change(1, fill_method=None)
 
     df["ma_5"] = df["close"].rolling(5).mean()
     df["ma_10"] = df["close"].rolling(10).mean()
 
-    df["vol_5d"] = df["close"].pct_change().rolling(5).std()
-    df["volume_change_1d"] = df["volume"].pct_change(1)
+    df["vol_5d"] = df["close"].pct_change(fill_method=None).rolling(5).std()
+    df["volume_change_1d"] = df["volume"].pct_change(1, fill_method=None)
 
     df["target_direction"] = (df["close"].shift(-1) > df["close"]).astype(int)
     df["target_volatility"] = ((df["close"].shift(-1) - df["close"]) / df["close"]).abs()
@@ -66,8 +68,8 @@ def build_features(spy_df: pd.DataFrame) -> pd.DataFrame:
     market = spy_df.copy()
     market = market.sort_values("date").reset_index(drop=True)
 
-    market["spy_ret_1d"] = market["close"].pct_change(1)
-    market["spy_ret_5d"] = market["close"].pct_change(5)
+    market["spy_ret_1d"] = market["close"].pct_change(1, fill_method=None)
+    market["spy_ret_5d"] = market["close"].pct_change(5, fill_method=None)
 
     return market[["date", "spy_ret_1d", "spy_ret_5d"]]
 
