@@ -369,7 +369,7 @@ ROC-AUC measures how well the model separates up days from down days. This is on
 
 ## Visualizations
 
-The project creates several types of visualizations.
+The project creates both static PNG visualizations and interactive Plotly HTML visualizations. The static plots are useful for quickly viewing results directly in the README, while the interactive HTML plots allow users to explore the data more deeply by hovering, zooming, and filtering.
 
 ### Stock-Level Visualizations
 
@@ -389,15 +389,27 @@ outputs/figures/AMZN/
 outputs/figures/META/
 ```
 
-The plots include:
+The stock-level visualizations show closing price, daily returns, and 5-day rolling volatility. These plots help show how each stock behaves before modeling.
 
-```text
-closing price over time
-daily returns over time
-5-day rolling volatility over time
-```
+#### Example: AAPL Closing Price
 
-These visualizations help show the behavior of each stock before modeling.
+![AAPL Closing Price](outputs/figures/AAPL/AAPL_price.png)
+
+This plot shows the closing price trend for AAPL over time. It helps provide context for the prediction task because the model is trying to predict the next-day direction of price movement.
+
+#### Example: AAPL Daily Returns
+
+![AAPL Daily Returns](outputs/figures/AAPL/AAPL_returns.png)
+
+This plot shows AAPL’s daily return values. Daily returns are more useful for modeling than raw prices because they show relative day-to-day movement and make stocks with different price levels easier to compare.
+
+#### Example: AAPL 5-Day Rolling Volatility
+
+![AAPL 5-Day Rolling Volatility](outputs/figures/AAPL/AAPL_volatility.png)
+
+This plot shows short-term volatility using a 5-day rolling window. Volatility is included because periods of high movement may affect how difficult next-day direction prediction becomes.
+
+---
 
 ### Model-Specific Visualizations
 
@@ -410,14 +422,33 @@ outputs/figures/random_forest/
 outputs/figures/gradient_boosting/
 ```
 
-These plots include:
+These plots include train/validation/test metric comparisons, overall test results, combined confusion matrices, and feature importance plots for tree-based models.
 
-```text
-train vs validation vs test metrics
-overall test results
-combined confusion matrices
-feature importance plots for tree-based models
-```
+#### Baseline Logistic Regression: Train vs Validation vs Test
+
+![Baseline Logistic Train Validation Test](outputs/figures/baseline_logistic/baseline_logistic_overfit_underfit_subplots.png)
+
+The baseline logistic regression uses only the target stock’s own features. This plot shows that the baseline has weak generalization, especially in F1 score. The training F1 is higher than validation and test F1 for several stocks, which suggests that the model learns some training patterns but does not generalize well to later data.
+
+#### Cross-Asset Logistic Regression: Train vs Validation vs Test
+
+![Cross-Asset Logistic Train Validation Test](outputs/figures/cross_asset_logistic/cross_asset_logistic_overfit_underfit_subplots.png)
+
+The cross-asset logistic regression uses helper stocks as predictive signals. Compared to the baseline, this model has stronger validation and test performance. It still shows some train-test gap, especially in ROC-AUC, so it is not completely free from overfitting. However, the gap is smaller and the test performance is stronger than the baseline.
+
+#### Random Forest: Train vs Validation vs Test
+
+![Random Forest Train Validation Test](outputs/figures/random_forest/random_forest_overfit_underfit_subplots.png)
+
+The Random Forest model captures nonlinear relationships between helper stocks and the target stock. This plot shows some overfitting because the training scores are often higher than validation and test scores. However, the model still improves over the baseline in several metrics.
+
+#### Gradient Boosting: Train vs Validation vs Test
+
+![Gradient Boosting Train Validation Test](outputs/figures/gradient_boosting/gradient_boosting_overfit_underfit_subplots.png)
+
+Gradient Boosting also uses cross-asset helper features and can capture nonlinear patterns. The model shows mild overfitting, but the use of shallow trees and regularized parameters helps control the gap between training and test performance.
+
+---
 
 ### Model Comparison Visualizations
 
@@ -427,14 +458,39 @@ Model comparison plots are saved in:
 outputs/figures/model_comparison/
 ```
 
-They compare all models using:
+They compare all models using test accuracy, test F1 score, test ROC-AUC, and average test performance.
 
-```text
-test accuracy
-test F1 score
-test ROC-AUC
-average test performance
-```
+#### Overall Model Comparison
+
+![Overall Model Comparison](outputs/figures/model_comparison/model_comparison_test_metrics_subplots.png)
+
+This plot compares the baseline model, cross-asset logistic regression, cross-asset Random Forest, and cross-asset Gradient Boosting across the five target stocks. The results show that cross-asset models generally outperform the baseline. This supports the main project hypothesis that related technology stocks provide useful predictive signals for next-day stock direction.
+
+#### Average Test Performance by Model
+
+![Average Test Performance](outputs/figures/model_comparison/average_test_performance_by_model_subplots.png)
+
+This plot summarizes the average test performance across all target stocks. It is useful for comparing the overall behavior of each model rather than focusing on a single stock. The cross-asset models usually have stronger F1 and ROC-AUC than the baseline, showing that helper stock information improves the prediction task.
+
+---
+
+### Feature Importance Visualizations
+
+Tree-based models provide feature importance values, which help explain which helper stocks contributed most to predictions.
+
+#### Random Forest Feature Importance
+
+![Random Forest Feature Importance](outputs/figures/random_forest/random_forest_feature_importance_subplots.png)
+
+This plot shows which helper stocks were most important for the Random Forest model for each target stock. This helps interpret whether related companies, such as other large technology or semiconductor stocks, were useful predictive signals.
+
+#### Gradient Boosting Feature Importance
+
+![Gradient Boosting Feature Importance](outputs/figures/gradient_boosting/gradient_boosting_feature_importance_subplots.png)
+
+This plot shows the feature importance values for the Gradient Boosting model. Like Random Forest, it helps explain which cross-asset helper stocks contributed most to prediction.
+
+---
 
 ### Interactive Visualizations
 
