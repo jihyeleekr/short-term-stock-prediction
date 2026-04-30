@@ -95,21 +95,85 @@ The main research question is:
 ## Repository Structure
 
 ```text
-src/
-├── analyze_correlation.py
-├── build_cross_features.py
-├── compare_models.py
-├── config.py
-├── data_collection.py
-├── plot_confusion_comparison.py
-├── plot_interactive_visualizations.py
-├── plot_stock_visualizations.py
-├── plot_train_val_test_comparison.py
-├── preprocessing.py
-├── train_classification.py
-├── train_cross_asset_gradient_boosting.py
-├── train_cross_asset_model.py
-└── train_cross_asset_random_forest.py
+## Repository Structure
+
+```text
+.
+├── data/
+│   ├── raw/
+│   └── processed/
+│       ├── cross_asset_dataset.csv
+│       └── model_dataset.csv
+│
+├── outputs/
+│   ├── figures/
+│   │   ├── AAPL/
+│   │   │   ├── AAPL_price.png
+│   │   │   ├── AAPL_returns.png
+│   │   │   └── AAPL_volatility.png
+│   │   ├── MSFT/
+│   │   │   ├── MSFT_price.png
+│   │   │   ├── MSFT_returns.png
+│   │   │   └── MSFT_volatility.png
+│   │   ├── GOOGL/
+│   │   │   ├── GOOGL_price.png
+│   │   │   ├── GOOGL_returns.png
+│   │   │   └── GOOGL_volatility.png
+│   │   ├── AMZN/
+│   │   │   ├── AMZN_price.png
+│   │   │   ├── AMZN_returns.png
+│   │   │   └── AMZN_volatility.png
+│   │   ├── META/
+│   │   │   ├── META_price.png
+│   │   │   ├── META_returns.png
+│   │   │   └── META_volatility.png
+│   │   ├── baseline_logistic/
+│   │   ├── cross_asset_logistic/
+│   │   ├── random_forest/
+│   │   ├── gradient_boosting/
+│   │   ├── model_comparison/
+│   │   └── interactive/
+│   │       ├── interactive_stock_prices.html
+│   │       ├── interactive_daily_returns.html
+│   │       ├── interactive_volatility.html
+│   │       ├── interactive_correlation_matrix.html
+│   │       └── interactive_model_comparison.html
+│   │
+│   └── metrics/
+│       ├── baseline_logistic_metrics.json
+│       ├── cross_asset_metrics.json
+│       ├── cross_asset_rf_metrics.json
+│       ├── cross_asset_gradient_boosting_metrics.json
+│       ├── model_comparison.csv
+│       └── train_val_test_comparison.csv
+│
+├── src/
+│   ├── analyze_correlation.py
+│   ├── build_cross_features.py
+│   ├── compare_models.py
+│   ├── config.py
+│   ├── data_collection.py
+│   ├── plot_confusion_comparison.py
+│   ├── plot_interactive_visualizations.py
+│   ├── plot_stock_visualizations.py
+│   ├── plot_train_val_test_comparison.py
+│   ├── preprocessing.py
+│   ├── train_classification.py
+│   ├── train_cross_asset_gradient_boosting.py
+│   ├── train_cross_asset_model.py
+│   └── train_cross_asset_random_forest.py
+│
+├── tests/
+│   └── test_core.py
+│
+├── .github/
+│   └── workflows/
+│       └── tests.yml
+│
+├── .gitignore
+├── Makefile
+├── requirements.txt
+└── README.md
 ```
 
 ---
