@@ -486,6 +486,7 @@ open outputs/figures/interactive/interactive_model_comparison.html
 ```
 
 or double-click the `.html` file in the project folder.
+
 ---
 
 ## Testing and GitHub Workflow
