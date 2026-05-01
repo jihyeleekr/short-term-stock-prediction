@@ -228,13 +228,21 @@ The main processing steps are:
 
 1. Convert dates into datetime format.
 2. Sort each stock by date.
-3. Remove or handle missing values.
+3. Check for missing or inconsistent values.
 4. Calculate daily and multi-day returns.
 5. Calculate moving averages.
 6. Calculate rolling volatility.
 7. Calculate volume change.
-8. Align target stocks and helper stocks by date.
+8. Align target stocks and helper stocks by trading date.
 9. Create the next-day direction target.
+
+### Missing Value Handling
+
+Some missing values are created during feature engineering. For example, return features, moving averages, and rolling volatility require previous days of data, so the first few rows for each stock may not have enough historical information.
+
+To handle this, I removed rows with missing values after feature creation using pandas cleaning logic such as `dropna()`. This ensures that all rows used for model training have complete feature values.
+
+For the cross-asset dataset, I aligned stocks by trading date and removed dates where required stock return values were missing. This was important because cross-asset models need the helper stock values and target stock values to refer to the same trading day.
 
 The baseline dataset uses each stock’s own historical features. The cross-asset dataset uses related stocks as helper features.
 
