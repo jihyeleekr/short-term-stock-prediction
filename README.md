@@ -1,5 +1,13 @@
 # Predicting Short-Term Stock Movement Using Price, Volume, and Cross-Asset Signals
 
+## Final Presentation Video
+
+A short presentation video for this project is available on YouTube:
+
+[![Final Project Presentation Video](https://img.youtube.com/vi/n5h1zQW1Cpg/0.jpg)](https://youtu.be/n5h1zQW1Cpg)
+
+Video link: https://youtu.be/n5h1zQW1Cpg
+
 ## How to Build and Run the Code
 
 This project is written in Python. The full pipeline can be reproduced using the included `Makefile`.
