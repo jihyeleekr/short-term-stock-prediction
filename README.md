@@ -250,20 +250,25 @@ The baseline dataset uses each stock’s own historical features. The cross-asse
 
 ## Features
 
-The baseline logistic regression model uses features such as:
+The baseline logistic regression model uses engineered features from each target stock’s own historical price and volume data, plus SPY market-context features.
 
-```text
-ret_1d
-ret_3d
-ret_5d
-ma_5
-ma_10
-vol_5d
-volume_change_1d
-spy_ret_1d
-spy_ret_5d
-```
+| Feature | Meaning |
+|---|---|
+| `ret_1d` | 1-day return: how much the stock changed compared to the previous trading day |
+| `ret_3d` | 3-day return: short-term price movement over the last 3 trading days |
+| `ret_5d` | 5-day return: short-term price movement over the last 5 trading days |
+| `ma_5` | 5-day moving average of the closing price |
+| `ma_10` | 10-day moving average of the closing price |
+| `vol_5d` | 5-day rolling volatility, calculated from recent returns |
+| `volume_change_1d` | 1-day percentage change in trading volume |
+| `spy_ret_1d` | 1-day SPY return, used as a market-level signal |
+| `spy_ret_5d` | 5-day SPY return, used as a broader market trend signal |
 
+The return features measure recent price movement. The moving average features summarize short-term trend direction. The volatility feature measures how unstable recent returns are. The volume feature captures changes in trading activity. SPY return features are included to represent overall market movement, since individual stocks are often affected by broader market direction.
+
+For the cross-asset models, I also use helper stock return values. In the cross-asset dataset, columns such as `AAPL`, `MSFT`, `GOOGL`, `NVDA`, `QCOM`, and `TSM` represent each stock’s daily return on that trading date. Positive values mean the stock increased from the previous trading day, while negative values mean it decreased.
+
+These features are appropriate for the task because the target is next-day stock direction, so recent returns, trend, volatility, volume changes, market movement, and related stock movements may all provide useful predictive signals.
 The cross-asset models use helper stock returns. For example:
 
 ```text
